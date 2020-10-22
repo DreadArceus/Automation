@@ -10,7 +10,7 @@ driver = webdriver.Safari() #Assigning the desired browser's web driver
 driver.get("https://web.whatsapp.com/") #Website to operate on
 wait = WebDriverWait(driver, 60) #Needed to allow WhatsApp's QR code scan
 
-target = '"Lalit Lakshay"' #Recipient name to find in whatsapp
+target = '"Umesh"' #Recipient name to find in whatsapp
 
 string = "Testing whatsapp via python..." #Actual Message
 
@@ -26,5 +26,8 @@ message = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[2]/di
 message.send_keys(string)
 sendbutton = driver.find_elements_by_xpath('//*[@id="main"]/footer/div[1]/div[3]/button')[0]
 sendbutton.click()
-
+for i in range(100):
+    message.send_keys(f'{i}')
+    message.send_keys(Keys.RETURN)
+time.sleep(6)
 driver.close()
