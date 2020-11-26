@@ -1,5 +1,6 @@
 from openpyxl import load_workbook
 from openpyxl import Workbook
+
 def convertToColumn(day):
     if(day < 27):
         return chr(64 + day)
@@ -8,14 +9,11 @@ def convertToColumn(day):
     else:
         return 'B' + chr(12 + day)
 def checkAbsence(day, sr):
-    if(day != 0):
-        day *= 2
-    c1 = convertToColumn(day + 6)
-    c2 = convertToColumn(day + 7)
-    return ws[c1 + f'{sr}'].value == 'A' and ws[c2 + f'{sr}'].value == 'A'
+    c = convertToColumn(day + 5)
+    return ws[c + f'{sr}'].value == 'A'
 
-months = ['NOV 2020']
 wb = load_workbook(filename = str(input()))
+months = wb.sheetnames
 wr = Workbook()
 for s in months:
     ws = wb[s]
@@ -23,11 +21,11 @@ for s in months:
     for day in range(31):
         conDay = convertToColumn(day + 1)
         result[conDay + '1'] = f'{day+1}' + ' ' + s[0] + s[1] + s[2]
-        sr, sn = 4, 1
+        sr, sn = 5, 1
         while(ws['B' + f'{sr}'].value):
             if(checkAbsence(day, sr)):
                 result[conDay + f'{sn+1}'] = ws['B' + f'{sr}'].value
                 sn += 1
             sr += 1
 wr.remove_sheet('Sheet')
-wr.save(filename = 'wR.xlsx')
+wr.save(filename = 'R.xlsx')
