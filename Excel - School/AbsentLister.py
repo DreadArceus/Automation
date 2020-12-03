@@ -29,5 +29,4 @@ for s in months:
                 result[conDay + f'{sn+1}'] = ws['B' + f'{sr}'].value
                 sn += 1
             sr += 1
-wr.remove_sheet('Sheet')
 wr.save(filename = 'wR.xlsx')
