@@ -1,9 +1,9 @@
 from openpyxl import load_workbook
 from openpyxl import Workbook
 
-sheets = ['pivotReport - 2020-12-03T094008']
-months = [[x, 0] for x in range(68, 77)]
 wb = load_workbook(filename = str(input()))
+sheets = wb.sheetnames
+months = [[x, 0] for x in range(68, 77)]
 wr = Workbook()
 for s in sheets:
     ws = wb[s]
@@ -11,7 +11,7 @@ for s in sheets:
     result = wr.create_sheet(title = 'DefaulterList')
     currentClass = ws['C' + f'{sr}'].value
     for m in months:
-        result[chr(m[0] - 2) + '1'] = ws[chr(m[0]) + f'2'].value
+        result[chr(m[0] - 2) + '1'] = ws[chr(m[0]) + f'2'].value + ' Till Date'
     while(ws['C' + f'{sr}'].value):
         if ws['C' + f'{sr}'].value != currentClass:
             result['A' + f'{sc}'] = currentClass
@@ -20,9 +20,13 @@ for s in sheets:
             months = [[x, 0] for x in range(68, 77)]
             currentClass = ws['C' + f'{sr}'].value
             sc += 1
-        for m in months:
-            if ws[chr(m[0]) + f'{sr}'].value:
-                m[1] += 1
+        stdM = -1
+        for i in range(len(months)):
+            if ws[chr(months[i][0]) + f'{sr}'].value:
+                stdM = i
+                break
+        if stdM != -1:
+            months[stdM][1] += 1
         sr += 1
     result['A' + f'{sc}'] = currentClass
     for m in months:
