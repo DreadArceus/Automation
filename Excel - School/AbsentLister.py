@@ -10,11 +10,11 @@ def convertToColumn(day):
 def checkAbsence(day, sr):
     if(day != 0):
         day *= 2
-    c1 = convertToColumn(day + 4)
-    c2 = convertToColumn(day + 5)
+    c1 = convertToColumn(day + 6)
+    c2 = convertToColumn(day + 7)
     return ws[c1 + f'{sr}'].value == 'A' and ws[c2 + f'{sr}'].value == 'A'
 
-months = ['NOV 2020']
+months = ['JAN 21']
 wb = load_workbook(filename = str(input()))
 wr = Workbook()
 for s in months:
