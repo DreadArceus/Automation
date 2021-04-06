@@ -14,7 +14,7 @@ def checkAbsence(day, sr):
     c2 = convertToColumn(day + 7)
     return ws[c1 + f'{sr}'].value == 'A' and ws[c2 + f'{sr}'].value == 'A'
 
-months = ['JAN 21']
+months = ['Mar 21']
 wb = load_workbook(filename = str(input()))
 wr = Workbook()
 for s in months:
